@@ -41,33 +41,33 @@ function playSingleRoundOfRPS(playerSelection, computerSelection) {
     //          - what if instead we give number values? well, it's a variable hierarchy... hmm...
     switch (playerSelection) {
         case computerSelection:
-            return 0;
+            // return 0; // uncomment to run beamMeUpScotty debugger
             return 'Tie! Try again';
             break;
         case 'Rock':
             if (computerSelection === 'Scissors') {
-                return 1;
+                // return 1; // uncomment to run beamMeUpScotty debugger
                 return `You win! ${playerSelection} beats ${computerSelection}`;
             } else {
-                return -1;
+                // return -1; // uncomment to run beamMeUpScotty debugger
                 return `You lose! ${computerSelection} beats ${playerSelection}`;
             }
             break;
         case 'Paper':
             if (computerSelection === 'Rock') {
-                return 1;
+                // return 1; // uncomment to run beamMeUpScotty debugger
                 return `You win! ${playerSelection} beats ${computerSelection}`;
             } else {
-                return -1;
+                // return -1; // uncomment to run beamMeUpScotty debugger
                 return `You lose! ${computerSelection} beats ${playerSelection}`;
             }
             break;
         case 'Scissors':
             if (computerSelection === 'Paper') {
-                return 1;
+                // return 1; // uncomment to run beamMeUpScotty debugger
                 return `You win! ${playerSelection} beats ${computerSelection}`;
             } else {
-                return -1;
+                // return -1; // uncomment to run beamMeUpScotty debugger
                 return `You lose! ${computerSelection} beats ${playerSelection}`;
             }
             break;
@@ -78,10 +78,45 @@ function playSingleRoundOfRPS(playerSelection, computerSelection) {
     }
 }
 
+function game() {
+    let gameStringReturnValue;
+
+    // Play 5 games
+    for (i = 0; i < 5; i++) {
+        gameStringReturnValue = playSingleRoundOfRPS(prompt("Pick your poison"), getComputerChoice());
+        console.log(gameStringReturnValue);
+        console.log(determineGameState(gameStringReturnValue));
+    }
+
+    // Keep track of score
+
+    // Report winner or loser
+}
+
+// This will be an unnecessarily complicated implementation of determining the win state due to
+//  the playSingleRoundOfRPS() only being allowed to output a string
+function determineGameState(gameStateString) {
+    // Sanitize input
+    gameStateStringSanitized = gameStateString.toLowerCase();
+
+    // Find game state string
+    if (gameStateStringSanitized.includes('win')) {
+        return 1;
+    } else if (gameStateStringSanitized.includes('lose')) {
+        return 0;
+    } else if (gameStateStringSanitized.includes('tie')) {
+        return 2;
+    } else {
+        console.error("Why are you here?");
+        return -1;
+    }
+}
+
 // BEGIN DEBUGGING SECTION
 
 // This was originally made to debug, then revamped to crash my browser. I'm keeping it around and adding a button
 // I wouldn't suggest going over 100,000,000 iterations. Might add input option with a sanitization cap
+// Uncomment the return lines in playSingleRoundOfRPS's return statements to run this debugger
 function beamMeUpScotty() {
     let wins = 0,
         losses = 0,
@@ -114,3 +149,5 @@ function beamMeUpScotty() {
     console.log(`ties: ${ties}`);
     alert(`wins: ${wins} - losses: ${losses} - ties: ${ties}`);
 }
+
+while(true) game();
