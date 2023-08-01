@@ -135,11 +135,12 @@ function beamMeUpScotty() {
 	let wins = 0,
 		losses = 0,
 		ties = 0;
+	const maxNumberOfIterations = 100000000;
 
 	// Give option to increase number of iterations (i)
 	let tortureDuration = Number(prompt("Enter a number for debug tortureDuration (don't go higher than 100,000,000, pretty please)"));
-	if (tortureDuration > 100000000) {
-		tortureDuration = 100000000;
+	if (tortureDuration > maxNumberOfIterations) {
+		tortureDuration = maxNumberOfIterations;
 	}
 
 	for (let i = 0; i < tortureDuration; i++) {
@@ -161,6 +162,7 @@ function beamMeUpScotty() {
 					break;
 		}
 	}
+	
 	console.log(`wins: ${wins}`);
 	console.log(`losses: ${losses}`);
 	console.log(`ties: ${ties}`);
