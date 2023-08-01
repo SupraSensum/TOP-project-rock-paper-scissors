@@ -1,6 +1,6 @@
 # TOP-project-rock-paper-scissors
 
-The Odin Project: Foundations: JavaScript Basics: Project: Rock Paper Scissors showcasing \&lt;TBD\&gt;
+The Odin Project: Foundations: JavaScript Basics: Project: Rock Paper Scissors showcasing JavaScript logic, giving a little taste of backend
 
 ## Link to the lesson:
 
