@@ -3,6 +3,8 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    gap: 16px;
+    flex-direction: column;
 }
 
 button {
@@ -12,4 +14,5 @@ button {
     font-weight: bold;
     border: 2px solid black;
     border-radius: 8px;
+    width: 50vw;
 }

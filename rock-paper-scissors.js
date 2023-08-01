@@ -1,3 +1,4 @@
+// Generate random computer play
 function getComputerChoice() {
     switch (Math.floor(Math.random() * 3) + 1) {
         case 1:
@@ -25,6 +26,7 @@ function getComputerChoice() {
 function playSingleRoundOfRPS(playerSelection, computerSelection) {
     // Sanitize input - make input case-INsensitive
     // Convert any input so that only the first letter is capitalized
+    playerSelection = playerSelection.slice(0, 1).toUpperCase() + playerSelection.slice(1, playerSelection.length).toLowerCase();
 
     //  - How do we determine winner?
     //      - Establish hierarchy
