@@ -138,8 +138,7 @@ function determineGameState(gameStateString) {
 }
 
 function promptTheMenu() {
-    beginDebug = confirm("Would you like to crash your system, er, debug?");
-    beginDebug ? beamMeUpScotty() : game();
+    confirm("Would you like to crash your system, er, debug?") ? beamMeUpScotty() : game();
     return;
 }
 
@@ -156,7 +155,7 @@ function beamMeUpScotty() {
         ties = 0;
 
     // Give option to increase number of iterations (i)
-    let tortureDuration = Number(prompt("Enter a number for debug tortureDuration"));
+    let tortureDuration = Number(prompt("Enter a number for debug tortureDuration (don't go higher than 100,000,000, pretty please)"));
     if (tortureDuration > 100000000) {
         tortureDuration = 100000000;
     }
