@@ -39,26 +39,33 @@ function playSingleRoundOfRPS(playerSelection, computerSelection) {
     //          - what if instead we give number values? well, it's a variable hierarchy... hmm...
     switch (playerSelection) {
         case computerSelection:
+            return 0;
             return 'Tie! Try again';
             break;
         case 'Rock':
             if (computerSelection === 'Scissors') {
+                return 1;
                 return `You win! ${playerSelection} beats ${computerSelection}`;
             } else {
+                return -1;
                 return `You lose! ${computerSelection} beats ${playerSelection}`;
             }
             break;
         case 'Paper':
             if (computerSelection === 'Rock') {
+                return 1;
                 return `You win! ${playerSelection} beats ${computerSelection}`;
             } else {
+                return -1;
                 return `You lose! ${computerSelection} beats ${playerSelection}`;
             }
             break;
         case 'Scissors':
             if (computerSelection === 'Paper') {
+                return 1;
                 return `You win! ${playerSelection} beats ${computerSelection}`;
             } else {
+                return -1;
                 return `You lose! ${computerSelection} beats ${playerSelection}`;
             }
             break;
@@ -69,4 +76,30 @@ function playSingleRoundOfRPS(playerSelection, computerSelection) {
     }
 }
 
-console.log(playSingleRoundOfRPS(prompt("Take your pick"), getComputerChoice()));
+// This was originally made to debug, then revamped to crash my browser. I'm keeping it around and adding a button
+// I wouldn't suggest going over 100,000,000 iterations. Might add input option with a sanitization cap
+function beamMeUpScotty() {
+    let wins = 0,
+        losses = 0,
+        ties = 0;
+    for (let i = 0; i < 100000000; i++) {
+        switch (playSingleRoundOfRPS(getComputerChoice(), getComputerChoice())) {
+            case -1:
+                losses++;
+                break;
+            case 0:
+                ties++;
+                break;
+            case 1:
+                wins++;
+                break;
+            default:
+                console.error("HOW THE FUCK ARE YOU HERE!?");
+                break;
+        }
+    }
+    console.log(`wins: ${wins}`);
+    console.log(`losses: ${losses}`);
+    console.log(`ties: ${ties}`);
+    alert(`wins: ${wins} - losses: ${losses} - ties: ${ties}`);
+}
