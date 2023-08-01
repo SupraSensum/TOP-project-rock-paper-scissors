@@ -80,17 +80,43 @@ function playSingleRoundOfRPS(playerSelection, computerSelection) {
 
 function game() {
     let gameStringReturnValue;
+    let playerWinCount = 0;
+    let computerWinCount = 0;
+    let tieCount = 0;
 
     // Play 5 games
     for (i = 0; i < 5; i++) {
+        // Play a round
         gameStringReturnValue = playSingleRoundOfRPS(prompt("Pick your poison"), getComputerChoice());
         console.log(gameStringReturnValue);
-        console.log(determineGameState(gameStringReturnValue));
+        
+        // Keep track of score
+        switch (determineGameState(gameStringReturnValue)) {
+            case -1:
+                console.error("Error on 'determineGameState()'");
+                break;
+            case 0:
+                computerWinCount++;
+                break;
+            case 1:
+                playerWinCount++;
+                break;
+            case 2:
+                tieCount++;
+        }
+
+        // Output round results
+        console.log(`Round ${i+1} (you: ${playerWinCount} - computer: ${computerWinCount} - tie: ${tieCount})`);
     }
-
-    // Keep track of score
-
-    // Report winner or loser
+    
+    // Output overall winner
+    if (playerWinCount === computerWinCount) {
+        console.log("Best of 5 rounds ended in a tie!");
+    } else if (playerWinCount > computerWinCount) {
+        console.log("You won the best of 5 rounds!");
+    } else {
+        console.log("You lost the best of 5 rounds!");
+    }
 }
 
 // This will be an unnecessarily complicated implementation of determining the win state due to
@@ -107,11 +133,12 @@ function determineGameState(gameStateString) {
     } else if (gameStateStringSanitized.includes('tie')) {
         return 2;
     } else {
-        console.error("Why are you here?");
         return -1;
     }
 }
 
+// BEGIN DEBUGGING SECTION
+// BEGIN DEBUGGING SECTION
 // BEGIN DEBUGGING SECTION
 
 // This was originally made to debug, then revamped to crash my browser. I'm keeping it around and adding a button
@@ -129,15 +156,18 @@ function beamMeUpScotty() {
     }
 
     for (let i = 0; i < tortureDuration; i++) {
-        switch (playSingleRoundOfRPS(getComputerChoice(), getComputerChoice())) {
+        switch (determineGameState(playSingleRoundOfRPS(getComputerChoice(), getComputerChoice()))) {
             case -1:
-                losses++;
+                console.error("Error on 'determineGameState()'");
                 break;
             case 0:
-                ties++;
+                losses++;
                 break;
             case 1:
                 wins++;
+                break;
+            case 2:
+                ties++;
                 break;
             default:
                 console.error("HOW THE FUCK ARE YOU HERE!?");
