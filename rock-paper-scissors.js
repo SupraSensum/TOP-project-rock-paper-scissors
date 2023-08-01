@@ -82,7 +82,14 @@ function beamMeUpScotty() {
     let wins = 0,
         losses = 0,
         ties = 0;
-    for (let i = 0; i < 100000000; i++) {
+
+    // Give option to increase number of iterations (i)
+    let tortureDuration = Number(prompt("Enter a number for tortureDuration"));
+    if (tortureDuration > 100000000) {
+        tortureDuration = 100000000;
+    }
+
+    for (let i = 0; i < tortureDuration; i++) {
         switch (playSingleRoundOfRPS(getComputerChoice(), getComputerChoice())) {
             case -1:
                 losses++;
