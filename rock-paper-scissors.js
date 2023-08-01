@@ -43,33 +43,26 @@ function playSingleRoundOfRPS(playerSelection, computerSelection) {
 	//          - what if instead we give number values? well, it's a variable hierarchy... hmm...
 	switch (playerSelection) {
 		case computerSelection:
-			// return 0; // uncomment to run beamMeUpScotty debugger
 			return 'Tie! Try again';
 			break;
 		case 'Rock':
 			if (computerSelection === 'Scissors') {
-					// return 1; // uncomment to run beamMeUpScotty debugger
 					return `You win! ${playerSelection} beats ${computerSelection}`;
 			} else {
-					// return -1; // uncomment to run beamMeUpScotty debugger
 					return `You lose! ${computerSelection} beats ${playerSelection}`;
 			}
 			break;
 		case 'Paper':
 			if (computerSelection === 'Rock') {
-					// return 1; // uncomment to run beamMeUpScotty debugger
 					return `You win! ${playerSelection} beats ${computerSelection}`;
 			} else {
-					// return -1; // uncomment to run beamMeUpScotty debugger
 					return `You lose! ${computerSelection} beats ${playerSelection}`;
 			}
 			break;
 		case 'Scissors':
 			if (computerSelection === 'Paper') {
-					// return 1; // uncomment to run beamMeUpScotty debugger
 					return `You win! ${playerSelection} beats ${computerSelection}`;
 			} else {
-					// return -1; // uncomment to run beamMeUpScotty debugger
 					return `You lose! ${computerSelection} beats ${playerSelection}`;
 			}
 			break;
