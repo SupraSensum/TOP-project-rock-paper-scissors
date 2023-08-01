@@ -2,11 +2,11 @@
 
 The Odin Project: Foundations: JavaScript Basics: Project: Rock Paper Scissors showcasing JavaScript logic, giving a little taste of backend
 
-## Link to the lesson:
+## Lesson Link:
 
 [https://www.theodinproject.com/lessons/foundations-rock-paper-scissors](https://www.theodinproject.com/lessons/foundations-rock-paper-scissors)
 
-## See it in action:
+## Live Preview:
 
 [https://suprasensum.github.io/TOP-project-rock-paper-scissors/](https://suprasensum.github.io/TOP-project-rock-paper-scissors/)
 
