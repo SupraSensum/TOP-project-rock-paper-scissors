@@ -76,6 +76,8 @@ function playSingleRoundOfRPS(playerSelection, computerSelection) {
     }
 }
 
+// BEGIN DEBUGGING SECTION
+
 // This was originally made to debug, then revamped to crash my browser. I'm keeping it around and adding a button
 // I wouldn't suggest going over 100,000,000 iterations. Might add input option with a sanitization cap
 function beamMeUpScotty() {
@@ -84,7 +86,7 @@ function beamMeUpScotty() {
         ties = 0;
 
     // Give option to increase number of iterations (i)
-    let tortureDuration = Number(prompt("Enter a number for tortureDuration"));
+    let tortureDuration = Number(prompt("Enter a number for debug tortureDuration"));
     if (tortureDuration > 100000000) {
         tortureDuration = 100000000;
     }
