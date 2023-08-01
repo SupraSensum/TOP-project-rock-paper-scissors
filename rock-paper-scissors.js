@@ -17,30 +17,14 @@ function getComputerChoice() {
 }
 
 // Play a single round of RPS
-//  - Function takes 2 parameters
-//      - playerSelection
-//      - computerSelection
-// - Return string declaring winner
-//      - "You lose! Paper beats rock"
-// - playerSelection parameter case-INsensitive
 function playSingleRoundOfRPS(playerSelection, computerSelection) {
-	// Sanitize input - make input case-INsensitive
-	// Convert any input so that only the first letter is capitalized
+	// Sanitize input - make input case-INsensitive by converting any input
+	// so that only the first letter is capitalized
 	playerSelection = 
 		playerSelection.slice(0, 1).toUpperCase() + 
 		playerSelection.slice(1, playerSelection.length).toLowerCase();
 
-	//  - How do we determine winner?
-	//      - Establish hierarchy
-	//          1. Rock > scissors but is < paper
-	//          2. Scissors > paper but is < rock
-	//          3. Paper > rock but is < scissors
-	//          - Do I create a separate function for each item?
-	//          - switch statement that triggers each item's function?
-	//          - doesRockWin()? doesPaperWin()? doesScissorsWin()?
-	//          - returns boolean
-	//          - actually, additional functions are silly. Just put it all in the switch statement
-	//          - what if instead we give number values? well, it's a variable hierarchy... hmm...
+	// Determine winner
 	switch (playerSelection) {
 		case computerSelection:
 			return 'Tie! Try again';
@@ -116,8 +100,8 @@ function game() {
 	}
 }
 
-// This will be an unnecessarily complicated implementation of determining the win state due to
-//  the playSingleRoundOfRPS() only being allowed to output a string
+// This will be an unnecessarily complicated implementation of determining the win
+// state due to the playSingleRoundOfRPS() only being allowed to output a string
 function determineGameState(gameStateString) {
 	// Sanitize input
 	gameStateStringSanitized = gameStateString.toLowerCase();
@@ -147,7 +131,6 @@ function promptTheMenu() {
 
 // This was originally made to debug, then revamped to crash my browser. I'm keeping it around and adding a button
 // I wouldn't suggest going over 100,000,000 iterations. Might add input option with a sanitization cap
-// Uncomment the return lines in playSingleRoundOfRPS's return statements to run this debugger
 function beamMeUpScotty() {
 	let wins = 0,
 		losses = 0,
