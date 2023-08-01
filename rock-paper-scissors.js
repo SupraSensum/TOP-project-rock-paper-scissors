@@ -26,7 +26,9 @@ function getComputerChoice() {
 function playSingleRoundOfRPS(playerSelection, computerSelection) {
 	// Sanitize input - make input case-INsensitive
 	// Convert any input so that only the first letter is capitalized
-	playerSelection = playerSelection.slice(0, 1).toUpperCase() + playerSelection.slice(1, playerSelection.length).toLowerCase();
+	playerSelection = 
+		playerSelection.slice(0, 1).toUpperCase() + 
+		playerSelection.slice(1, playerSelection.length).toLowerCase();
 
 	//  - How do we determine winner?
 	//      - Establish hierarchy
@@ -87,7 +89,9 @@ function game() {
 	// Play 5 games
 	for (i = 0; i < 5; i++) {
 		// Play a round
-		gameStringReturnValue = playSingleRoundOfRPS(prompt("Rock, Paper, Scissors!"), getComputerChoice());
+		gameStringReturnValue = 
+			playSingleRoundOfRPS(prompt("Rock, Paper, Scissors!"), 
+			getComputerChoice());
 		console.log(gameStringReturnValue);
 		
 		// Keep track of score
@@ -138,7 +142,9 @@ function determineGameState(gameStateString) {
 }
 
 function promptTheMenu() {
-	confirm("Would you like to crash your system, er, debug?") ? beamMeUpScotty() : game();
+	confirm("Would you like to crash your system, er, debug?") ? 
+		beamMeUpScotty() : 
+		game();
 	return;
 }
 
