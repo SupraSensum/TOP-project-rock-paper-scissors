@@ -87,7 +87,7 @@ function game() {
     // Play 5 games
     for (i = 0; i < 5; i++) {
         // Play a round
-        gameStringReturnValue = playSingleRoundOfRPS(prompt("Pick your poison"), getComputerChoice());
+        gameStringReturnValue = playSingleRoundOfRPS(prompt("Rock, Paper, Scissors!"), getComputerChoice());
         console.log(gameStringReturnValue);
         
         // Keep track of score
@@ -137,6 +137,12 @@ function determineGameState(gameStateString) {
     }
 }
 
+function promptTheMenu() {
+    beginDebug = confirm("Would you like to crash your system, er, debug?");
+    beginDebug ? beamMeUpScotty() : game();
+    return;
+}
+
 // BEGIN DEBUGGING SECTION
 // BEGIN DEBUGGING SECTION
 // BEGIN DEBUGGING SECTION
@@ -179,5 +185,3 @@ function beamMeUpScotty() {
     console.log(`ties: ${ties}`);
     alert(`wins: ${wins} - losses: ${losses} - ties: ${ties}`);
 }
-
-while(true) game();
