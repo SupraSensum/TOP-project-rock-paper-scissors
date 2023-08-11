@@ -17,9 +17,12 @@ function getComputerChoice() {
 }
 
 // Play a single round of RPS
-function playSingleRoundOfRPS(playerSelection, computerSelection) {
+function playSingleRoundOfRPS(playerSelection) {
+	let computerSelection = getComputerChoice();
+
 	// Sanitize input - make input case-INsensitive by converting any input
 	// so that only the first letter is capitalized
+	playerSelection = playerSelection.trim();
 	playerSelection = 
 		playerSelection.slice(0, 1).toUpperCase() + 
 		playerSelection.slice(1, playerSelection.length).toLowerCase();
@@ -57,51 +60,10 @@ function playSingleRoundOfRPS(playerSelection, computerSelection) {
 	}
 }
 
-function game() {
-	let gameStringReturnValue;
-	let playerWinCount = 0;
-	let computerWinCount = 0;
-	let tieCount = 0;
+// keep running total
 
-	// Play 5 games
-	for (i = 0; i < 5; i++) {
-		// Play a round
-		gameStringReturnValue = 
-			playSingleRoundOfRPS(prompt("Rock, Paper, Scissors!"), 
-			getComputerChoice());
-		console.log(gameStringReturnValue);
-		
-		// Keep track of score
-		switch (determineGameState(gameStringReturnValue)) {
-			case -1:
-					console.error("Error on 'determineGameState()'");
-					break;
-			case 0:
-					computerWinCount++;
-					break;
-			case 1:
-					playerWinCount++;
-					break;
-			case 2:
-					tieCount++;
-		}
+// 
 
-		// Output round results
-		console.log(`Round ${i+1} (you: ${playerWinCount} - computer: ${computerWinCount} - tie: ${tieCount})`);
-	}
-	
-	// Output overall winner
-	if (playerWinCount === computerWinCount) {
-		console.log("Best of 5 rounds ended in a tie!");
-	} else if (playerWinCount > computerWinCount) {
-		console.log("You won the best of 5 rounds!");
-	} else {
-		console.log("You lost the best of 5 rounds!");
-	}
-}
-
-// This will be an unnecessarily complicated implementation of determining the win
-// state due to the playSingleRoundOfRPS() only being allowed to output a string
 function determineGameState(gameStateString) {
 	// Sanitize input
 	gameStateStringSanitized = gameStateString.toLowerCase();
@@ -118,53 +80,9 @@ function determineGameState(gameStateString) {
 	}
 }
 
-function promptTheMenu() {
-	confirm("Would you like to crash your system, er, debug?") ? 
-		beamMeUpScotty() : 
-		game();
-	return;
-}
+// Event listeners
+const playerSelectionButtons = document.querySelectorAll('.buttons-container > button');
 
-// BEGIN DEBUGGING SECTION
-// BEGIN DEBUGGING SECTION
-// BEGIN DEBUGGING SECTION
-
-// This was originally made to debug, then revamped to crash my browser. I'm keeping it around and adding a button
-// I wouldn't suggest going over 100,000,000 iterations. Might add input option with a sanitization cap
-function beamMeUpScotty() {
-	let wins = 0,
-		losses = 0,
-		ties = 0;
-	const maxNumberOfIterations = 100000000;
-
-	// Give option to increase number of iterations (i)
-	let tortureDuration = Number(prompt("Enter a number for debug tortureDuration (don't go higher than 100,000,000, pretty please)"));
-	if (tortureDuration > maxNumberOfIterations) {
-		tortureDuration = maxNumberOfIterations;
-	}
-
-	for (let i = 0; i < tortureDuration; i++) {
-		switch (determineGameState(playSingleRoundOfRPS(getComputerChoice(), getComputerChoice()))) {
-			case -1:
-					console.error("Error on 'determineGameState()'");
-					break;
-			case 0:
-					losses++;
-					break;
-			case 1:
-					wins++;
-					break;
-			case 2:
-					ties++;
-					break;
-			default:
-					console.error("HOW THE FUCK ARE YOU HERE!?");
-					break;
-		}
-	}
-	
-	console.log(`wins: ${wins}`);
-	console.log(`losses: ${losses}`);
-	console.log(`ties: ${ties}`);
-	alert(`wins: ${wins} - losses: ${losses} - ties: ${ties}`);
-}
+playerSelectionButtons.forEach((button) => {
+	button.addEventListener('click', playSingleRoundOfRPS)
+});

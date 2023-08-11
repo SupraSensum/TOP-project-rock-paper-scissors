@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>TOP: Project: Rock Paper Scissors</title>
-	<script src="./rock-paper-scissors.js"></script>
+	<script src="./rock-paper-scissors.js" defer></script>
 	<link rel="stylesheet" href="./index.css">
 </head>
 <body>
@@ -13,17 +13,31 @@
 	</header>
 
 	<div id="content">
+		<div class="results-container">
+			<div class="results-container-offset">
+				<div id="player-tally">
 
+				</div>
+
+				<div id="tie-tally">
+
+				</div>
+
+				<div id="computer-tally">
+					
+				</div>
+			</div>
+		</div>
+
+		<div class="buttons-container">
+			<button id="rock">ROCK</button>
+			<button id="paper">PAPER</button>
+			<button id="scissors">SCISSORS</button>
+		</div>
 	</div>
 
 	<footer>
 		<button id="IDareYou">I dare you to click me</button>
-		
-		<script>
-			// Considering these button shtuffs as part of the beamMeUpScotty debugging function
-			const buttonDare = document.getElementById("IDareYou")
-			buttonDare.addEventListener("click", promptTheMenu);
-		</script>
 	</footer>
 </body>
 </html>
