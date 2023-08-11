@@ -60,10 +60,6 @@ function playSingleRoundOfRPS(playerSelection) {
 	}
 }
 
-// keep running total
-
-// 
-
 function determineGameState(gameStateString) {
 	// Sanitize input
 	gameStateStringSanitized = gameStateString.toLowerCase();
@@ -84,5 +80,5 @@ function determineGameState(gameStateString) {
 const playerSelectionButtons = document.querySelectorAll('.buttons-container > button');
 
 playerSelectionButtons.forEach((button) => {
-	button.addEventListener('click', playSingleRoundOfRPS)
+	button.addEventListener('click', playSingleRoundOfRPS);
 });
