@@ -76,9 +76,26 @@ function determineGameState(gameStateString) {
 	}
 }
 
+// the damn thing returns text after each round
+// 1. run determineGameState
+// 2. update the running tally based on determineGameState return value
+// 3. check if it was the last round
+// 	a. if not, play another round
+// 	b. if so, determine winner
+// 4. determine text to push to UI
+function beginGame () {
+	
+	for (let i = 0; i < 5; i++) {
+		
+	}
+
+	let roundResult = playSingleRoundOfRPS(this.textContent);
+	
+}
+
 // Event listeners
 const playerSelectionButtons = document.querySelectorAll('.buttons-container > button');
 
 playerSelectionButtons.forEach((button) => {
-	button.addEventListener('click', playSingleRoundOfRPS);
+	button.addEventListener('click', beginGame);
 });
