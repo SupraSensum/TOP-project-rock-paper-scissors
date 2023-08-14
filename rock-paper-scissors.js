@@ -83,10 +83,6 @@ function beginGame () {
 	// 3. playSingleRoundOfRPS
 	// 4. getComputerChoice
 	// 
-	// Brainstorm the process
-	// - Game begins on button press (html shows only a single button reading "Click to begin game")
-	// - Once clicked, js replaces that button with 3 new buttons
-	// 
 	// - run beginGame
 	// 	- playSingleRoundOfRPS a user defined number of times
 	// 		- getComputerChoice
@@ -108,12 +104,7 @@ function beginGame () {
 }
 
 // Event listeners
-const playerSelectionButtons = document.querySelectorAll('.buttons-container > button');
 const beginGameButton = document.querySelector('#begin-game');
-
-playerSelectionButtons.forEach((button) => {
-	button.addEventListener('click', beginGame);
-});
 
 beginGameButton.addEventListener('click', beginGame);
 
@@ -122,6 +113,11 @@ function replaceBeginGameButton() {
 	const rockButton = document.createElement('button');
 	const paperButton = document.createElement('button');
 	const scissorsButton = document.createElement('button');
+	const playerSelectionButtons = [
+		rockButton,
+		paperButton,
+		scissorsButton
+	]
 
 	buttonsContainer.textContent = '';
 
@@ -133,7 +129,7 @@ function replaceBeginGameButton() {
 	paperButton.textContent = 'PAPER';
 	scissorsButton.textContent = 'SCISSORS';
 
-	buttonsContainer.appendChild(rockButton);
-	buttonsContainer.appendChild(paperButton);
-	buttonsContainer.appendChild(scissorsButton);
+	playerSelectionButtons.forEach((button) => {
+		buttonsContainer.appendChild(button);
+	});
 }
