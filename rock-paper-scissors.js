@@ -60,7 +60,7 @@ function playSingleRoundOfRPS(playerSelection) {
 	}
 }
 
-function determineGameState(gameStateString) {
+function determineWinner(gameStateString) {
 	// Sanitize input
 	gameStateStringSanitized = gameStateString.toLowerCase();
 
@@ -76,26 +76,64 @@ function determineGameState(gameStateString) {
 	}
 }
 
-// the damn thing returns text after each round
-// 1. run determineGameState
-// 2. update the running tally based on determineGameState return value
-// 3. check if it was the last round
-// 	a. if not, play another round
-// 	b. if so, determine winner
-// 4. determine text to push to UI
 function beginGame () {
-	
-	for (let i = 0; i < 5; i++) {
-		
-	}
+	// Tools at our disposal:
+	// 1. beginGame
+	// 2. determineWinner
+	// 3. playSingleRoundOfRPS
+	// 4. getComputerChoice
+	// 
+	// Brainstorm the process
+	// - Game begins on button press (html shows only a single button reading "Click to begin game")
+	// - Once clicked, js replaces that button with 3 new buttons
+	// 
+	// - run beginGame
+	// 	- playSingleRoundOfRPS a user defined number of times
+	// 		- getComputerChoice
+	//		 	- determineWinner
+	// 		- updateTally
+	// 			- also updates UI tally
+	// 	- determineOverallWinner
+	// 		- if human > computer ? "You won best of ###!"
+	// 		- if computer > human ? "Computer won best of ###!"
+	// 		- "It's a tie!"
 
-	let roundResult = playSingleRoundOfRPS(this.textContent);
+	replaceBeginGameButton();
+	
+	// for (let i = 0; i < ; i++) {
+	// 	let roundResult = playSingleRoundOfRPS(this.textContent);
+	// 	console.log(roundResult);
+	// }
 	
 }
 
 // Event listeners
 const playerSelectionButtons = document.querySelectorAll('.buttons-container > button');
+const beginGameButton = document.querySelector('#begin-game');
 
 playerSelectionButtons.forEach((button) => {
 	button.addEventListener('click', beginGame);
 });
+
+beginGameButton.addEventListener('click', beginGame);
+
+function replaceBeginGameButton() {
+	const buttonsContainer = document.querySelector('.buttons-container');
+	const rockButton = document.createElement('button');
+	const paperButton = document.createElement('button');
+	const scissorsButton = document.createElement('button');
+
+	buttonsContainer.textContent = '';
+
+	rockButton.id = 'rock';
+	paperButton.id = 'paper';
+	scissorsButton.id = 'scissors';
+
+	rockButton.textContent = 'ROCK';
+	paperButton.textContent = 'PAPER';
+	scissorsButton.textContent = 'SCISSORS';
+
+	buttonsContainer.appendChild(rockButton);
+	buttonsContainer.appendChild(paperButton);
+	buttonsContainer.appendChild(scissorsButton);
+}
