@@ -11,18 +11,18 @@ function getComputerChoice() {
 			return "Scissors";
 			break;
 		default:
-			console.error("You shouldn't be here");
+			console.error("How did this happen?!");
+			return "How did this happen?!";
 			break;
 	}
 }
 
 // Play a single round of RPS
-function playSingleRoundOfRPS() {
+function playSingleRoundOfRPS(playerSelection) {
 	let computerSelection = getComputerChoice();
 
 	// Sanitize input - make input case-INsensitive by converting any input
 	// so that only the first letter is capitalized
-	playerSelection = this.textContent;
 	playerSelection = playerSelection.trim();
 	playerSelection = 
 		playerSelection.slice(0, 1).toUpperCase() + 
@@ -77,31 +77,6 @@ function determineWinner(gameStateString) {
 	}
 }
 
-function beginGame () {
-	// Tools at our disposal:
-	// 1. beginGame
-	// 2. determineWinner
-	// 3. playSingleRoundOfRPS
-	// 4. getComputerChoice
-	// 
-	// - run beginGame
-	// 	- playSingleRoundOfRPS a user defined number of times
-	// 		- getComputerChoice
-	//		 	- determineWinner
-	// 		- updateTally
-	// 			- also updates UI tally
-	// 	- determineOverallWinner
-	// 		- if human > computer ? "You won best of ###!"
-	// 		- if computer > human ? "Computer won best of ###!"
-	// 		- "It's a tie!"
-	
-	// for (let i = 0; i < ; i++) {
-	// 	let roundResult = playSingleRoundOfRPS(this.textContent);
-	// 	console.log(roundResult);
-	// }
-	
-}
-
 // Event listeners
 const beginGameButton = document.querySelector('#begin-game');
 
@@ -129,7 +104,38 @@ function replaceBeginGameButton() {
 	scissorsButton.textContent = 'SCISSORS';
 
 	playerSelectionButtons.forEach((button) => {
-		button.addEventListener('click', playSingleRoundOfRPS);
+		button.addEventListener('click', beginGame);
+
 		buttonsContainer.appendChild(button);
 	});
+
+	return;
+}
+
+	// Tools at our disposal:
+	// 1. beginGame
+	// 2. determineWinner
+	// 3. playSingleRoundOfRPS
+	// 4. getComputerChoice
+	// - BUTTON ONLY RETURNS PROVIDES CHOICE; KEEP BUTTON BEHAVIOR SIMPLE
+	// - run beginGame
+	// 	- playSingleRoundOfRPS a user defined number of times
+	// 		- getComputerChoice
+	//		 	- determineWinner
+	// 		- updateTally
+	// 			- also updates UI tally
+	// 	- determineOverallWinner
+	// 		- if human > computer ? "You won best of ###!"
+	// 		- if computer > human ? "Computer won best of ###!"
+	// 		- "It's a tie!"
+
+function beginGame () {
+	let playerSelection = this.textContent;
+	let roundResult = playSingleRoundOfRPS(playerSelection);
+	
+	const dialogContainer = document.querySelector('.dialog-container > h2');
+
+	dialogContainer.textContent = roundResult;
+
+	return;
 }
