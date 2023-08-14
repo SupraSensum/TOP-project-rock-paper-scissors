@@ -17,11 +17,12 @@ function getComputerChoice() {
 }
 
 // Play a single round of RPS
-function playSingleRoundOfRPS(playerSelection) {
+function playSingleRoundOfRPS() {
 	let computerSelection = getComputerChoice();
 
 	// Sanitize input - make input case-INsensitive by converting any input
 	// so that only the first letter is capitalized
+	playerSelection = this.textContent;
 	playerSelection = playerSelection.trim();
 	playerSelection = 
 		playerSelection.slice(0, 1).toUpperCase() + 
@@ -93,8 +94,6 @@ function beginGame () {
 	// 		- if human > computer ? "You won best of ###!"
 	// 		- if computer > human ? "Computer won best of ###!"
 	// 		- "It's a tie!"
-
-	replaceBeginGameButton();
 	
 	// for (let i = 0; i < ; i++) {
 	// 	let roundResult = playSingleRoundOfRPS(this.textContent);
@@ -106,7 +105,7 @@ function beginGame () {
 // Event listeners
 const beginGameButton = document.querySelector('#begin-game');
 
-beginGameButton.addEventListener('click', beginGame);
+beginGameButton.addEventListener('click', replaceBeginGameButton);
 
 function replaceBeginGameButton() {
 	const buttonsContainer = document.querySelector('.buttons-container');
@@ -130,6 +129,7 @@ function replaceBeginGameButton() {
 	scissorsButton.textContent = 'SCISSORS';
 
 	playerSelectionButtons.forEach((button) => {
+		button.addEventListener('click', playSingleRoundOfRPS);
 		buttonsContainer.appendChild(button);
 	});
 }
