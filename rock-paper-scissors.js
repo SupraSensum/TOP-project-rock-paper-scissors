@@ -1,3 +1,12 @@
+let scoreHuman = 0;
+let scoreComputer = 0;
+let scoreTie = 0;
+
+// Event listeners
+const beginGameButton = document.querySelector('#begin-game');
+
+beginGameButton.addEventListener('click', replaceBeginGameButton);
+
 // Generate random computer play
 function getComputerChoice() {
 	switch (Math.floor(Math.random() * 3) + 1) {
@@ -61,27 +70,6 @@ function playSingleRoundOfRPS(playerSelection) {
 	}
 }
 
-function determineWinner(gameStateString) {
-	// Sanitize input
-	gameStateStringSanitized = gameStateString.toLowerCase();
-
-	// Find game state string
-	if (gameStateStringSanitized.includes('win')) {
-		return 1;
-	} else if (gameStateStringSanitized.includes('lose')) {
-		return 0;
-	} else if (gameStateStringSanitized.includes('tie')) {
-		return 2;
-	} else {
-		return -1;
-	}
-}
-
-// Event listeners
-const beginGameButton = document.querySelector('#begin-game');
-
-beginGameButton.addEventListener('click', replaceBeginGameButton);
-
 function replaceBeginGameButton() {
 	const buttonsContainer = document.querySelector('.buttons-container');
 	const rockButton = document.createElement('button');
@@ -131,9 +119,30 @@ function replaceBeginGameButton() {
 
 function beginGame () {
 	let playerSelection = this.textContent;
-	let roundResult = playSingleRoundOfRPS(playerSelection);
+	let roundResult = '';
+	let gameStateStringSanitized = '';
 	
 	const dialogContainer = document.querySelector('.dialog-container > h2');
+	const humanTally = document.querySelector('#human-tally-value > h1');
+	const tieTally	= document.querySelector('#tie-tally-value > h1');
+	const computerTally = document.querySelector('#computer-tally-value > h1');
+
+	roundResult = playSingleRoundOfRPS(playerSelection);
+	
+	// Sanitize round's string output
+	gameStateStringSanitized = roundResult.toLowerCase();
+
+	// Find game state string and update tally on UI
+	if (gameStateStringSanitized.includes('win')) {
+		humanTally.textContent = ++scoreHuman;
+	} else if (gameStateStringSanitized.includes('lose')) {
+		computerTally.textContent = ++scoreComputer;
+	} else if (gameStateStringSanitized.includes('tie')) {
+		tieTally.textContent = ++scoreTie;
+	} else {
+		console.error('How did you even get here?!');
+		return;
+	}
 
 	dialogContainer.textContent = roundResult;
 
