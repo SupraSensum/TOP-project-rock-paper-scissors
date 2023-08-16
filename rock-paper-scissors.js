@@ -77,6 +77,7 @@ function playSingleRoundOfRPS(playerSelection) {
 
 function replaceBeginGameButton() {
 	const buttonsContainer = document.querySelector('.buttons-container');
+	
 	const numInputElement = document.createElement('input');
 	const numInputElementMessage = document.createElement('label');
 	const submitButton = document.createElement('button');
@@ -113,7 +114,7 @@ function replaceBeginGameButton() {
 	buttonsContainer.appendChild(numInputElement);
 	buttonsContainer.appendChild(submitButton);
 
-	// Clear container in prep for user selection buttons
+	// // Clear container in prep for user selection buttons
 	// buttonsContainer.textContent = '';
 
 	// rockButton.id = 'rock';
