@@ -82,6 +82,7 @@ header {
 	justify-content: center;
 	align-items: center;
 	align-content: center;
+	flex-direction: column;
 	flex-wrap: wrap;
 	gap: 8px;
 	padding: 0px 16px;

@@ -1,6 +1,11 @@
 let scoreHuman = 0;
 let scoreComputer = 0;
 let scoreTie = 0;
+let totalNumberOfRounds = 1;
+let currentRound = 1;
+
+const MAX_NUMBER_OF_ROUNDS = 20;
+const MIN_NUMBER_OF_ROUNDS = 1;
 
 // Event listeners
 const beginGameButton = document.querySelector('#begin-game');
@@ -72,6 +77,10 @@ function playSingleRoundOfRPS(playerSelection) {
 
 function replaceBeginGameButton() {
 	const buttonsContainer = document.querySelector('.buttons-container');
+	const numInputElement = document.createElement('input');
+	const numInputElementMessage = document.createElement('label');
+	const submitButton = document.createElement('button');
+
 	const rockButton = document.createElement('button');
 	const paperButton = document.createElement('button');
 	const scissorsButton = document.createElement('button');
@@ -81,21 +90,45 @@ function replaceBeginGameButton() {
 		scissorsButton
 	]
 
+	// Clear container in prep for user input
 	buttonsContainer.textContent = '';
+	
+	numInputElement.type = 'number';
+	numInputElement.inputMode = 'numeric';
+	numInputElement.id = 'total-rounds-input';
+	numInputElement.name = 'total-rounds-input';
+	numInputElement.max = MAX_NUMBER_OF_ROUNDS;
+	numInputElement.min = MIN_NUMBER_OF_ROUNDS;
+	numInputElement.value = 5;
+	numInputElement.setAttribute('required', '');
 
-	rockButton.id = 'rock';
-	paperButton.id = 'paper';
-	scissorsButton.id = 'scissors';
+	numInputElementMessage.setAttribute('for', 'total-rounds-input');
+	numInputElementMessage.textContent = 'Number of rounds (1 - 20):';
 
-	rockButton.textContent = 'ROCK';
-	paperButton.textContent = 'PAPER';
-	scissorsButton.textContent = 'SCISSORS';
+	submitButton.id = 'input-submit-button';
+	submitButton.textContent = 'SUBMIT';
+	submitButton.addEventListener('click', () => totalNumberOfRounds = numInputElement.value);
 
-	playerSelectionButtons.forEach((button) => {
-		button.addEventListener('click', beginGame);
+	buttonsContainer.appendChild(numInputElementMessage);
+	buttonsContainer.appendChild(numInputElement);
+	buttonsContainer.appendChild(submitButton);
 
-		buttonsContainer.appendChild(button);
-	});
+	// Clear container in prep for user selection buttons
+	// buttonsContainer.textContent = '';
+
+	// rockButton.id = 'rock';
+	// paperButton.id = 'paper';
+	// scissorsButton.id = 'scissors';
+
+	// rockButton.textContent = 'ROCK';
+	// paperButton.textContent = 'PAPER';
+	// scissorsButton.textContent = 'SCISSORS';
+
+	// playerSelectionButtons.forEach((button) => {
+	// 	button.addEventListener('click', beginGame);
+
+	// 	buttonsContainer.appendChild(button);
+	// });
 
 	return;
 }
@@ -127,6 +160,8 @@ function beginGame () {
 	const tieTally	= document.querySelector('#tie-tally-value > h1');
 	const computerTally = document.querySelector('#computer-tally-value > h1');
 
+	currentRound++;
+
 	roundResult = playSingleRoundOfRPS(playerSelection);
 	
 	// Sanitize round's string output
@@ -145,6 +180,12 @@ function beginGame () {
 	}
 
 	dialogContainer.textContent = roundResult;
+
+	// first gotta ask how many rounds user would like to play
+	// if currentRound > totalNumRounds
+	// 	... nothing, bruh
+	// else
+	// 	congrats, you
 
 	return;
 }
