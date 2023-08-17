@@ -1,0 +1,11 @@
+Revamp for UI
+
+Button phases
+1. intro - begin button
+2. number of rounds selection
+3. player move selection
+
+How do we get to each phase? (verb functions)
+1. replaceBeginGameButton (should rename to presentNumRoundsInterface)
+2. presentPlayerSelectionInterface
+3. presentBeginGameInterface
