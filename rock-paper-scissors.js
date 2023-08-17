@@ -7,10 +7,49 @@ let currentRound = 1;
 const MAX_NUMBER_OF_ROUNDS = 20;
 const MIN_NUMBER_OF_ROUNDS = 1;
 
-// Event listeners
 const beginGameButton = document.querySelector('#begin-game');
 
 beginGameButton.addEventListener('click', presentNumRoundsInterface);
+
+function beginGame () {
+	let playerSelection = this.textContent;
+	let roundResult = '';
+	let gameStateStringSanitized = '';
+	
+	const dialogContainer = document.querySelector('.dialog-container > h2');
+
+	roundResult = playSingleRoundOfRPS(playerSelection);
+	
+	// Sanitize round's string output
+	gameStateStringSanitized = roundResult.toLowerCase();
+
+	// Find game state string and update tally on UI
+	if (gameStateStringSanitized.includes('win')) {
+		++scoreHuman;
+		updateTallyUI();
+	} else if (gameStateStringSanitized.includes('lose')) {
+		++scoreComputer;
+		updateTallyUI();
+	} else if (gameStateStringSanitized.includes('tie')) {
+		++scoreTie;
+		updateTallyUI();
+	} else {
+		console.error('How did you even get here?!');
+		return;
+	}
+
+	if (currentRound < totalNumberOfRounds) {
+		dialogContainer.textContent = getCurrentRoundStatus() + roundResult;
+		currentRound++;
+	}
+	else {
+		dialogContainer.textContent = getFinalGameStatus();
+		resetAllGlobalVariables();
+		presentPlayAgainInterface();
+	}
+
+	return;
+}
 
 // Generate random computer play
 function getComputerChoice() {
@@ -150,52 +189,6 @@ function presentPlayerSelectionInterface () {
 	return;
 }
 
-function beginGame () {
-	let playerSelection = this.textContent;
-	let roundResult = '';
-	let gameStateStringSanitized = '';
-	
-	const dialogContainer = document.querySelector('.dialog-container > h2');
-
-	roundResult = playSingleRoundOfRPS(playerSelection);
-	
-	// Sanitize round's string output
-	gameStateStringSanitized = roundResult.toLowerCase();
-
-	// Find game state string and update tally on UI
-	if (gameStateStringSanitized.includes('win')) {
-		++scoreHuman;
-		updateTallyUI();
-	} else if (gameStateStringSanitized.includes('lose')) {
-		++scoreComputer;
-		updateTallyUI();
-	} else if (gameStateStringSanitized.includes('tie')) {
-		++scoreTie;
-		updateTallyUI();
-	} else {
-		console.error('How did you even get here?!');
-		return;
-	}
-
-	// first gotta ask how many rounds user would like to play
-	// if currentRound > totalNumRounds
-	// 	... nothing, bruh
-	// else
-	// 	congrats, you
-
-	if (currentRound < totalNumberOfRounds) {
-		dialogContainer.textContent = getCurrentRoundStatus() + roundResult;
-		currentRound++;
-	}
-	else {
-		dialogContainer.textContent = getFinalGameStatus();
-		resetAllGlobalVariables();
-		presentPlayAgainInterface();
-	}
-
-	return;
-}
-
 function updateTallyUI() {
 	const humanTally = document.querySelector('#human-tally-value > h1');
 	const tieTally	= document.querySelector('#tie-tally-value > h1');
@@ -204,8 +197,6 @@ function updateTallyUI() {
 	humanTally.textContent = scoreHuman;
 	computerTally.textContent = scoreComputer;
 	tieTally.textContent = scoreTie;
-
-	console.log(`${scoreHuman} ${scoreComputer} ${scoreTie}`);
 }
 
 function getCurrentRoundStatus() {
@@ -254,7 +245,6 @@ function presentBeginGameInterface() {
 	buttonsContainer.textContent = '';
 
 	buttonsContainer.appendChild(beginGameButton);
-
 
 	return;
 }
