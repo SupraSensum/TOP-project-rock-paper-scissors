@@ -12,6 +12,15 @@ Button interface brainstorm
    2. presentPlayerSelectionInterface
    3. presentBeginGameInterface
 
+   Function breakdown
+   presentNumRoundsInterface
+      1. declare all requied variable/consts
+      2. clear our container
+      3. setup input element attributes
+      4. setup input prompt label
+      5. setup submit button
+      6. append all children to the container we cleared out
+
 Overall game flow
 
    Tools at our disposal:

@@ -115,8 +115,12 @@ footer {
 	padding: 32px 16px;
 }
 
-/* debugging */
-
-/* #content > * {
-	border: 3px solid red;
-} */
+input {
+	padding: 16px 32px;
+	font-family: monospace;
+	font-size: 15.6px;
+	font-weight: bold;
+	text-align: center;
+	border: 2px solid black;
+	border-radius: 8px;
+}

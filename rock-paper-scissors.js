@@ -79,10 +79,10 @@ function presentNumRoundsInterface() {
 	const buttonsContainer = document.querySelector('.buttons-container');
 	
 	const numberOfRoundsInputElement = document.createElement('input');
-	const numberOfRoundsInputElementMessage = document.createElement('label');
+	const numberOfRoundsInputElementMessage = document.createElement('h3');
+	const numberOfRoundsInputElementMessageContainer = document.createElement('label');
 	const submitButton = document.createElement('button');
 
-	// Clear container in prep for user input
 	buttonsContainer.textContent = '';
 	
 	numberOfRoundsInputElement.type = 'number';
@@ -94,14 +94,16 @@ function presentNumRoundsInterface() {
 	numberOfRoundsInputElement.value = 5;
 	numberOfRoundsInputElement.setAttribute('required', '');
 
-	numberOfRoundsInputElementMessage.setAttribute('for', 'total-rounds-input');
+	numberOfRoundsInputElementMessageContainer.setAttribute('for', 'total-rounds-input');
 	numberOfRoundsInputElementMessage.textContent = 'Number of rounds (1 - 20):';
+	numberOfRoundsInputElementMessageContainer.appendChild(numberOfRoundsInputElementMessage);
 
 	submitButton.id = 'input-submit-button';
-	submitButton.textContent = 'SUBMIT';
+	submitButton.textContent = 'SUBMIT';666666666666666666666
 	submitButton.addEventListener('click', () => totalNumberOfRounds = numberOfRoundsInputElement.value);
+	submitButton.addEventListener('click', presentPlayerSelectionInterface);
 
-	buttonsContainer.appendChild(numberOfRoundsInputElementMessage);
+	buttonsContainer.appendChild(numberOfRoundsInputElementMessageContainer);
 	buttonsContainer.appendChild(numberOfRoundsInputElement);
 	buttonsContainer.appendChild(submitButton);
 
@@ -141,7 +143,7 @@ function presentPlayerSelectionInterface () {
 }
 
 function beginGame () {
-	let playerSelection = this.textContent;
+	let playerSelection = '';
 	let roundResult = '';
 	let gameStateStringSanitized = '';
 	
@@ -149,6 +151,8 @@ function beginGame () {
 	const humanTally = document.querySelector('#human-tally-value > h1');
 	const tieTally	= document.querySelector('#tie-tally-value > h1');
 	const computerTally = document.querySelector('#computer-tally-value > h1');
+
+	// everything below here is old code that needs to be refactored
 
 	currentRound++;
 
