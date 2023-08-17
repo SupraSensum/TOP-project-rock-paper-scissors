@@ -1,11 +1,32 @@
-Revamp for UI
+### Revamp for UI ###
 
-Button phases
-1. intro - begin button
-2. number of rounds selection
-3. player move selection
+Button interface brainstorm
 
-How do we get to each phase? (verb functions)
-1. replaceBeginGameButton (should rename to presentNumRoundsInterface)
-2. presentPlayerSelectionInterface
-3. presentBeginGameInterface
+   Button phases
+   1. intro - begin button
+   2. number of rounds selection
+   3. player move selection
+
+   How do we get to each phase? (verb functions)
+   1. replaceBeginGameButton (should rename to presentNumRoundsInterface)
+   2. presentPlayerSelectionInterface
+   3. presentBeginGameInterface
+
+Overall game flow
+
+   Tools at our disposal:
+   1. beginGame
+   2. determineWinner
+   3. playSingleRoundOfRPS
+   4. getComputerChoice
+   - BUTTON ONLY RETURNS PROVIDES CHOICE; KEEP BUTTON BEHAVIOR SIMPLE
+   - run beginGame
+      - playSingleRoundOfRPS a user defined number of times
+         - getComputerChoice
+            - determineWinner
+         - updateTally
+            - also updates UI tally
+      - determineOverallWinner
+         - if human > computer ? "You won best of ###!"
+         - if computer > human ? "Computer won best of ###!"
+         - "It's a tie!"

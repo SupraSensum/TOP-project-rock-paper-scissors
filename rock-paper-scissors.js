@@ -10,7 +10,7 @@ const MIN_NUMBER_OF_ROUNDS = 1;
 // Event listeners
 const beginGameButton = document.querySelector('#begin-game');
 
-beginGameButton.addEventListener('click', replaceBeginGameButton);
+beginGameButton.addEventListener('click', presentNumRoundsInterface);
 
 // Generate random computer play
 function getComputerChoice() {
@@ -75,12 +75,41 @@ function playSingleRoundOfRPS(playerSelection) {
 	}
 }
 
-function replaceBeginGameButton() {
+function presentNumRoundsInterface() {
 	const buttonsContainer = document.querySelector('.buttons-container');
 	
-	const numInputElement = document.createElement('input');
-	const numInputElementMessage = document.createElement('label');
+	const numberOfRoundsInputElement = document.createElement('input');
+	const numberOfRoundsInputElementMessage = document.createElement('label');
 	const submitButton = document.createElement('button');
+
+	// Clear container in prep for user input
+	buttonsContainer.textContent = '';
+	
+	numberOfRoundsInputElement.type = 'number';
+	numberOfRoundsInputElement.inputMode = 'numeric';
+	numberOfRoundsInputElement.id = 'total-rounds-input';
+	numberOfRoundsInputElement.name = 'total-rounds-input';
+	numberOfRoundsInputElement.max = MAX_NUMBER_OF_ROUNDS;
+	numberOfRoundsInputElement.min = MIN_NUMBER_OF_ROUNDS;
+	numberOfRoundsInputElement.value = 5;
+	numberOfRoundsInputElement.setAttribute('required', '');
+
+	numberOfRoundsInputElementMessage.setAttribute('for', 'total-rounds-input');
+	numberOfRoundsInputElementMessage.textContent = 'Number of rounds (1 - 20):';
+
+	submitButton.id = 'input-submit-button';
+	submitButton.textContent = 'SUBMIT';
+	submitButton.addEventListener('click', () => totalNumberOfRounds = numberOfRoundsInputElement.value);
+
+	buttonsContainer.appendChild(numberOfRoundsInputElementMessage);
+	buttonsContainer.appendChild(numberOfRoundsInputElement);
+	buttonsContainer.appendChild(submitButton);
+
+	return;
+}
+
+function presentPlayerSelectionInterface () {
+	const buttonsContainer = document.querySelector('.buttons-container');
 
 	const rockButton = document.createElement('button');
 	const paperButton = document.createElement('button');
@@ -89,67 +118,27 @@ function replaceBeginGameButton() {
 		rockButton,
 		paperButton,
 		scissorsButton
-	]
+	];
 
-	// Clear container in prep for user input
 	buttonsContainer.textContent = '';
+
+	rockButton.id = 'rock';
+	rockButton.textContent = 'ROCK';
+
+	paperButton.id = 'paper';
+	paperButton.textContent = 'PAPER';
 	
-	numInputElement.type = 'number';
-	numInputElement.inputMode = 'numeric';
-	numInputElement.id = 'total-rounds-input';
-	numInputElement.name = 'total-rounds-input';
-	numInputElement.max = MAX_NUMBER_OF_ROUNDS;
-	numInputElement.min = MIN_NUMBER_OF_ROUNDS;
-	numInputElement.value = 5;
-	numInputElement.setAttribute('required', '');
+	scissorsButton.id = 'scissors';
+	scissorsButton.textContent = 'SCISSORS';
 
-	numInputElementMessage.setAttribute('for', 'total-rounds-input');
-	numInputElementMessage.textContent = 'Number of rounds (1 - 20):';
+	playerSelectionButtons.forEach((button) => {
+		button.addEventListener('click', beginGame);
 
-	submitButton.id = 'input-submit-button';
-	submitButton.textContent = 'SUBMIT';
-	submitButton.addEventListener('click', () => totalNumberOfRounds = numInputElement.value);
-
-	buttonsContainer.appendChild(numInputElementMessage);
-	buttonsContainer.appendChild(numInputElement);
-	buttonsContainer.appendChild(submitButton);
-
-	// // Clear container in prep for user selection buttons
-	// buttonsContainer.textContent = '';
-
-	// rockButton.id = 'rock';
-	// paperButton.id = 'paper';
-	// scissorsButton.id = 'scissors';
-
-	// rockButton.textContent = 'ROCK';
-	// paperButton.textContent = 'PAPER';
-	// scissorsButton.textContent = 'SCISSORS';
-
-	// playerSelectionButtons.forEach((button) => {
-	// 	button.addEventListener('click', beginGame);
-
-	// 	buttonsContainer.appendChild(button);
-	// });
+		buttonsContainer.appendChild(button);
+	});
 
 	return;
 }
-
-	// Tools at our disposal:
-	// 1. beginGame
-	// 2. determineWinner
-	// 3. playSingleRoundOfRPS
-	// 4. getComputerChoice
-	// - BUTTON ONLY RETURNS PROVIDES CHOICE; KEEP BUTTON BEHAVIOR SIMPLE
-	// - run beginGame
-	// 	- playSingleRoundOfRPS a user defined number of times
-	// 		- getComputerChoice
-	//		 	- determineWinner
-	// 		- updateTally
-	// 			- also updates UI tally
-	// 	- determineOverallWinner
-	// 		- if human > computer ? "You won best of ###!"
-	// 		- if computer > human ? "Computer won best of ###!"
-	// 		- "It's a tie!"
 
 function beginGame () {
 	let playerSelection = this.textContent;
