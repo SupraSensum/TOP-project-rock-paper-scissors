@@ -50,3 +50,8 @@ Overall game flow (reworked)
          - addEventListener to each player selection button to beginGame
    3. beginGame gets hit a user-defined number of times
       a. once user-defined number of games is played, presentBeginGameInterface
+
+getFinalGameStatus
+- human > computer ? you won best of ###
+- computer > human ? computer won best of ###
+- else ? tie

@@ -100,7 +100,15 @@ function presentNumRoundsInterface() {
 
 	submitButton.id = 'input-submit-button';
 	submitButton.textContent = 'SUBMIT';666666666666666666666
-	submitButton.addEventListener('click', () => totalNumberOfRounds = numberOfRoundsInputElement.value);
+	submitButton.addEventListener('click', () => {
+		if (numberOfRoundsInputElement.value > MAX_NUMBER_OF_ROUNDS) {
+			totalNumberOfRounds = MAX_NUMBER_OF_ROUNDS;
+		} else if (numberOfRoundsInputElement.value < MIN_NUMBER_OF_ROUNDS) {
+			totalNumberOfRounds = 1;
+		} else {
+			totalNumberOfRounds = numberOfRoundsInputElement.value;
+		}
+	});
 	submitButton.addEventListener('click', presentPlayerSelectionInterface);
 
 	buttonsContainer.appendChild(numberOfRoundsInputElementMessageContainer);
@@ -143,18 +151,11 @@ function presentPlayerSelectionInterface () {
 }
 
 function beginGame () {
-	let playerSelection = '';
+	let playerSelection = this.textContent;
 	let roundResult = '';
 	let gameStateStringSanitized = '';
 	
 	const dialogContainer = document.querySelector('.dialog-container > h2');
-	const humanTally = document.querySelector('#human-tally-value > h1');
-	const tieTally	= document.querySelector('#tie-tally-value > h1');
-	const computerTally = document.querySelector('#computer-tally-value > h1');
-
-	// everything below here is old code that needs to be refactored
-
-	currentRound++;
 
 	roundResult = playSingleRoundOfRPS(playerSelection);
 	
@@ -163,23 +164,97 @@ function beginGame () {
 
 	// Find game state string and update tally on UI
 	if (gameStateStringSanitized.includes('win')) {
-		humanTally.textContent = ++scoreHuman;
+		++scoreHuman;
+		updateTallyUI();
 	} else if (gameStateStringSanitized.includes('lose')) {
-		computerTally.textContent = ++scoreComputer;
+		++scoreComputer;
+		updateTallyUI();
 	} else if (gameStateStringSanitized.includes('tie')) {
-		tieTally.textContent = ++scoreTie;
+		++scoreTie;
+		updateTallyUI();
 	} else {
 		console.error('How did you even get here?!');
 		return;
 	}
-
-	dialogContainer.textContent = roundResult;
 
 	// first gotta ask how many rounds user would like to play
 	// if currentRound > totalNumRounds
 	// 	... nothing, bruh
 	// else
 	// 	congrats, you
+
+	if (currentRound < totalNumberOfRounds) {
+		dialogContainer.textContent = getCurrentRoundStatus() + roundResult;
+		currentRound++;
+	}
+	else {
+		dialogContainer.textContent = getFinalGameStatus();
+		resetAllGlobalVariables();
+		presentPlayAgainInterface();
+	}
+
+	return;
+}
+
+function updateTallyUI() {
+	const humanTally = document.querySelector('#human-tally-value > h1');
+	const tieTally	= document.querySelector('#tie-tally-value > h1');
+	const computerTally = document.querySelector('#computer-tally-value > h1');
+
+	humanTally.textContent = scoreHuman;
+	computerTally.textContent = scoreComputer;
+	tieTally.textContent = scoreTie;
+
+	console.log(`${scoreHuman} ${scoreComputer} ${scoreTie}`);
+}
+
+function getCurrentRoundStatus() {
+	return `${currentRound}/${totalNumberOfRounds}: `;
+}
+
+function resetAllGlobalVariables() {
+	scoreHuman = 0;
+	scoreComputer = 0;
+	scoreTie = 0;
+	totalNumberOfRounds = 1;
+	currentRound = 1;
+}
+
+function getFinalGameStatus() {
+	if (scoreHuman > scoreComputer) {
+		return `You won best of ${totalNumberOfRounds}!`;
+	} else if (scoreComputer > scoreHuman) {
+		return `Computer won best of ${totalNumberOfRounds}!`;
+	} else {
+		return `It's an overall tie!`;
+	}
+}
+
+function presentPlayAgainInterface() {
+	const buttonsContainer = document.querySelector('.buttons-container');
+	
+	const playAgainButton = document.createElement('button');
+
+	buttonsContainer.textContent = '';
+
+	playAgainButton.id = 'playAgain';
+	playAgainButton.textContent = 'PLAY AGAIN';
+	playAgainButton.addEventListener('click', presentBeginGameInterface);
+
+	buttonsContainer.appendChild(playAgainButton);
+
+	return;
+}
+
+function presentBeginGameInterface() {
+	const dialogContainer = document.querySelector('.dialog-container > h2');
+	const buttonsContainer = document.querySelector('.buttons-container');
+
+	dialogContainer.textContent = '';
+	buttonsContainer.textContent = '';
+
+	buttonsContainer.appendChild(beginGameButton);
+
 
 	return;
 }
