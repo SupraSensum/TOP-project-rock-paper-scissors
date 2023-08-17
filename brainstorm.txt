@@ -8,7 +8,7 @@ Button interface brainstorm
    3. player move selection
 
    How do we get to each phase? (verb functions)
-   1. replaceBeginGameButton (should rename to presentNumRoundsInterface)
+   1. presentNumRoundsInterface
    2. presentPlayerSelectionInterface
    3. presentBeginGameInterface
 
@@ -30,3 +30,14 @@ Overall game flow
          - if human > computer ? "You won best of ###!"
          - if computer > human ? "Computer won best of ###!"
          - "It's a tie!"
+
+Overall game flow (reworked)
+
+   1. user hits 'begin game'
+      a. triggers presentNumRoundsInterface
+         - addEventListener to submit button to presentPlayerSelectionInterface
+   2. user hits 'submit'
+      a. triggers presentPlayerSelectionInterface
+         - addEventListener to each player selection button to beginGame
+   3. beginGame gets hit a user-defined number of times
+      a. once user-defined number of games is played, presentBeginGameInterface
